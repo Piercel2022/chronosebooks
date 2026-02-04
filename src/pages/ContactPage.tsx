@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Mail, MessageSquare, Clock, Facebook, Instagram, Send, CheckCircle } from 'lucide-react';
 
 const ContactPage = () => {
@@ -31,7 +31,7 @@ const ContactPage = () => {
         body: JSON.stringify(formData)
       });
 
-      const data = await response.json();
+      //const data = await response.json();
 
       if (response.ok) {
         setIsSubmitted(true);
