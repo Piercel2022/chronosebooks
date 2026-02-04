@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams,Link } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
-import { products, type Product } from '../data/products';
+import { products} from '../data/products';
 import Button from '../components/common/Button';
 
 // Define the Product type based on your data structure
@@ -11,7 +11,7 @@ import Button from '../components/common/Button';
 
 const ProductDetailPage = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const { addToCart } = useCart();
   //const [product, setProduct] = useState<Product | null>(null);
   const [selectedFormat, setSelectedFormat] = useState('pdf');
