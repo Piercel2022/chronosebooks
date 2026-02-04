@@ -1,16 +1,45 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const FilterBar = ({ onFilterChange, products = [] }) => {
-  const [activeCategory, setActiveCategory] = useState('all');
-  const [priceRange, setPriceRange] = useState('all');
-  const [sortBy, setSortBy] = useState('featured');
-  const [isExpanded, setIsExpanded] = useState(false);
+// Type definitions
+interface Product {
+  category?: string;
+  price?: number;
+  title?: string;
+  [key: string]: any;
+}
+
+interface FilterState {
+  category: string;
+  priceRange: string;
+  sortBy: string;
+}
+
+interface FilterBarProps {
+  onFilterChange?: (filters: FilterState) => void;
+  products?: Product[];
+}
+
+interface PriceRange {
+  value: string;
+  label: string;
+}
+
+interface SortOption {
+  value: string;
+  label: string;
+}
+
+const FilterBar = ({ onFilterChange, products = [] }: FilterBarProps) => {
+  const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [priceRange, setPriceRange] = useState<string>('all');
+  const [sortBy, setSortBy] = useState<string>('featured');
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   // Extract unique categories from products
-  const categories = ['all', ...new Set(products.map(p => p.category).filter(Boolean))];
+  const categories: string[] = ['all', ...new Set(products.map(p => p.category).filter((cat): cat is string => Boolean(cat)))];
   
-  const priceRanges = [
+  const priceRanges: PriceRange[] = [
     { value: 'all', label: 'All Prices' },
     { value: '0-10', label: 'Under $10' },
     { value: '10-20', label: '$10 - $20' },
@@ -18,7 +47,7 @@ const FilterBar = ({ onFilterChange, products = [] }) => {
     { value: '50+', label: '$50+' }
   ];
 
-  const sortOptions = [
+  const sortOptions: SortOption[] = [
     { value: 'featured', label: 'Featured' },
     { value: 'price-low', label: 'Price: Low to High' },
     { value: 'price-high', label: 'Price: High to Low' },
@@ -26,22 +55,22 @@ const FilterBar = ({ onFilterChange, products = [] }) => {
     { value: 'title', label: 'Alphabetical' }
   ];
 
-  const handleCategoryChange = (category) => {
+  const handleCategoryChange = (category: string): void => {
     setActiveCategory(category);
     applyFilters(category, priceRange, sortBy);
   };
 
-  const handlePriceChange = (range) => {
+  const handlePriceChange = (range: string): void => {
     setPriceRange(range);
     applyFilters(activeCategory, range, sortBy);
   };
 
-  const handleSortChange = (sort) => {
+  const handleSortChange = (sort: string): void => {
     setSortBy(sort);
     applyFilters(activeCategory, priceRange, sort);
   };
 
-  const applyFilters = (category, price, sort) => {
+  const applyFilters = (category: string, price: string, sort: string): void => {
     onFilterChange?.({
       category,
       priceRange: price,
@@ -49,7 +78,7 @@ const FilterBar = ({ onFilterChange, products = [] }) => {
     });
   };
 
-  const resetFilters = () => {
+  const resetFilters = (): void => {
     setActiveCategory('all');
     setPriceRange('all');
     setSortBy('featured');
@@ -162,7 +191,7 @@ const FilterBar = ({ onFilterChange, products = [] }) => {
         )}
       </AnimatePresence>
 
-      <style jsx>{`
+      <style>{`
         .filter-bar-container {
           background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
           padding: 1.5rem;
