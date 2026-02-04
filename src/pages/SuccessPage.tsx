@@ -54,8 +54,8 @@ const SuccessPage = () => {
               style={{
                 left: `${Math.random() * 100}%`,
                 top: '-10px',
-                animationDelay: `${Math.random() * 2}s`,
-                animationDuration: `${2 + Math.random() * 2}s`,
+                animationDelay: `${Math.random() * 22}s`,
+                animationDuration: `${22 + Math.random() * 22}s`,
               }}
             >
               <Sparkles 
