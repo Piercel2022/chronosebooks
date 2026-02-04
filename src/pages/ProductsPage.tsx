@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ProductGrid from '../components/products/ProductGrid';
 import FilterBar from '../components/products/FilterBar';
@@ -8,8 +8,8 @@ import type { Product } from '../types/Product';
 const ProductsPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [sortBy, setSortBy] = useState<string>('featured');
-  const [priceRange, setPriceRange] = useState<number[]>([0, 100]);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [priceRange, setPriceRange] = useState<string>('all');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   // Get category from URL params
@@ -19,16 +19,12 @@ const ProductsPage = () => {
   const filteredProducts = useMemo<Product[]>(() => {
     let filtered: Product[] = [...products];
 
-    // Apply category filter from URL or selected filters
-    const activeCategories = categoryFromUrl 
-      ? [categoryFromUrl] 
-      : selectedCategories.length > 0 
-        ? selectedCategories 
-        : [];
+    // Apply category filter from URL or selected filter
+    const activeCategory = categoryFromUrl || selectedCategory;
 
-    if (activeCategories.length > 0) {
+    if (activeCategory && activeCategory !== 'all') {
       filtered = filtered.filter(p => 
-        activeCategories.includes(p.category)
+        p.category === activeCategory
       );
     }
 
@@ -37,26 +33,33 @@ const ProductsPage = () => {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(p =>
         p.title.toLowerCase().includes(query) ||
-        p.author.toLowerCase().includes(query) ||
-        p.description.toLowerCase().includes(query)
+        (p.author?.toLowerCase().includes(query) ?? false) ||
+        (p.description?.toLowerCase().includes(query) ?? false)
       );
     }
 
     // Apply price range filter
-    filtered = filtered.filter(p => 
-      p.price >= priceRange[0] && p.price <= priceRange[1]
-    );
+    if (priceRange && priceRange !== 'all') {
+      filtered = filtered.filter(p => {
+        const price = p.price || 0;
+        if (priceRange === '0-10') return price < 10;
+        if (priceRange === '10-20') return price >= 10 && price < 20;
+        if (priceRange === '20-50') return price >= 20 && price < 50;
+        if (priceRange === '50+') return price >= 50;
+        return true;
+      });
+    }
 
     // Apply sorting
     switch (sortBy) {
       case 'price-low':
-        filtered.sort((a, b) => a.price - b.price);
+        filtered.sort((a, b) => (a.price || 0) - (b.price || 0));
         break;
       case 'price-high':
-        filtered.sort((a, b) => b.price - a.price);
+        filtered.sort((a, b) => (b.price || 0) - (a.price || 0));
         break;
       case 'rating':
-        filtered.sort((a, b) => b.rating - a.rating);
+        filtered.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
         break;
       case 'newest':
         filtered.sort((a, b) => {
@@ -64,13 +67,16 @@ const ProductsPage = () => {
           return new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime();
         });
         break;
+      case 'title':
+        filtered.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+        break;
       default:
         // Featured - keep original order
         break;
     }
 
     return filtered;
-  }, [categoryFromUrl, selectedCategories, searchQuery, priceRange, sortBy]);
+  }, [categoryFromUrl, selectedCategory, searchQuery, priceRange, sortBy]);
 
   // Get unique categories from products
   const categories = useMemo(() => {
@@ -124,11 +130,11 @@ const ProductsPage = () => {
               <span className="hover:text-orange-600 transition-colors cursor-pointer">Home</span>
               <span className="mx-2">/</span>
               <span className="font-medium text-gray-900">
-                {categoryFromUrl || 'All Books'}
+                {categoryFromUrl ?? (selectedCategory !== 'all' ? selectedCategory : 'All Books')}
               </span>
             </nav>
             <h2 className="text-3xl font-serif font-bold text-gray-900">
-              {categoryFromUrl ? `${categoryFromUrl} Books` : 'All Books'}
+              {categoryFromUrl ? `${categoryFromUrl} Books` : selectedCategory !== 'all' ? `${selectedCategory} Books` : 'All Books'}
             </h2>
           </div>
           
@@ -167,16 +173,12 @@ const ProductsPage = () => {
         {/* Filter Bar */}
         <div className="animate-fadeIn" style={{ animationDelay: '0.5s' }}>
           <FilterBar
-            onFilterChange={(filters: {
-              categories?: string[];
-              priceRange?: number[];
-              sortBy?: string;
-            }) => {
-              if (filters.categories) setSelectedCategories(filters.categories);
-              if (filters.priceRange) setPriceRange(filters.priceRange);
-              if (filters.sortBy) setSortBy(filters.sortBy);
+            onFilterChange={(filters) => {
+              setSelectedCategory(filters.category);
+              setPriceRange(filters.priceRange);
+              setSortBy(filters.sortBy);
             }}
-            products={filteredProducts as never[]}
+            products={filteredProducts}
           />
         </div>
 
@@ -211,8 +213,9 @@ const ProductsPage = () => {
             <button
               onClick={() => {
                 setSearchQuery('');
-                setSelectedCategories([]);
-                setPriceRange([0, 100]);
+                setSelectedCategory('all');
+                setPriceRange('all');
+                setSortBy('featured');
                 setSearchParams({});
               }}
               className="px-6 py-3 bg-orange-600 text-white rounded-full hover:bg-orange-700 transition-all shadow-md hover:shadow-lg font-medium"
