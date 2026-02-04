@@ -73,7 +73,7 @@ const ProductGrid = ({ products = [], filters = {}, onAddToCart, isLoading = fal
     setFilteredProducts(filtered);
     // Reset display count when filters change
     setDisplayCount(12);
-  }, [products, filters]); // Fixed: proper dependency array
+  }, [products, filters.category, filters.priceRange, filters.sortBy]); // Fixed: individual filter values
 
   const handleLoadMore = () => {
     setDisplayCount(prev => prev + 12);
