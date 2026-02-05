@@ -1,37 +1,10 @@
-// Chronos eBooks - Product Catalog
-// Premium digital products designed for modern entrepreneurs, tech professionals, and personal growth seekers
-export type Category = 'Business' | 'Self-Help' | 'Tech';
 
-export interface Product {
-  
-  id: number;
-  title: string;
-  subtitle?: string;
-  author: string;
-  category: Category;
-
-  price: number;
-  originalPrice?: number;
-
-  rating: number;
-  reviews: number;
-
-  pages?: number;
-  format?: string;
-  releaseDate?: string;
-
-  preOrder?: boolean;
-  bestseller?: boolean;
-  newRelease?: boolean;
-
-  description: string;
-  features: string[];
-  coverImage: string;
-  tags: string[];
-}
+import type { Product } from '../types/Product';
+// Utility functions for filtering and searching
 
 export const products: Product[] = [
-  // ========================================
+
+// ========================================
   // BUSINESS CATEGORY (10 products)
   // ========================================
   {
@@ -43,12 +16,12 @@ export const products: Product[] = [
     price: 47.00,
     originalPrice: 97.00,
     rating: 4.9,
-    reviews: 2847,
+    reviewCount: 2847,
     pages: 342,
     format: "PDF + EPUB",
     releaseDate: "March 2026",
     preOrder: true,
-    bestseller: true,
+    isBestseller: true,
     description: "Discover the exact frameworks used by industry leaders to scale from six to seven figures. This comprehensive guide reveals battle-tested strategies for revenue optimization, customer acquisition, and sustainable growth.",
     features: [
       "12 proven revenue scaling frameworks",
@@ -59,7 +32,9 @@ export const products: Product[] = [
       "Quarterly update access for 1 year"
     ],
     coverImage: "/covers/revenue-blueprint.jpg",
-    tags: ["entrepreneurship", "scaling", "revenue", "strategy"]
+    tags: ["entrepreneurship", "scaling", "revenue", "strategy"],
+    type: 'ebook',
+    isNew: false
   },
   {
     id: 2,
@@ -70,7 +45,6 @@ export const products: Product[] = [
     price: 39.00,
     originalPrice: 79.00,
     rating: 4.8,
-    reviews: 3621,
     pages: 428,
     format: "PDF + EPUB + Audio",
     releaseDate: "April 2026",
@@ -85,7 +59,11 @@ export const products: Product[] = [
       "100+ ready-to-use templates"
     ],
     coverImage: "/covers/digital-marketing-mastery.jpg",
-    tags: ["marketing", "digital", "SEO", "social media"]
+    tags: ["marketing", "digital", "SEO", "social media"],
+    reviewCount: 0,
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 3,
@@ -96,12 +74,12 @@ export const products: Product[] = [
     price: 34.00,
     originalPrice: 69.00,
     rating: 4.7,
-    reviews: 1893,
+    reviewCount: 1893,
     pages: 298,
     format: "PDF + EPUB",
     releaseDate: "March 2026",
     preOrder: true,
-    newRelease: true,
+    //newRelease?: true,
     description: "Launch your startup faster and smarter. Learn how to validate ideas, build MVPs, and achieve product-market fit without burning through capital.",
     features: [
       "30-day MVP development framework",
@@ -112,7 +90,10 @@ export const products: Product[] = [
       "Real startup case studies"
     ],
     coverImage: "/covers/lean-startup-playbook.jpg",
-    tags: ["startup", "entrepreneurship", "MVP", "lean"]
+    tags: ["startup", "entrepreneurship", "MVP", "lean"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 4,
@@ -123,7 +104,7 @@ export const products: Product[] = [
     price: 42.00,
     originalPrice: 84.00,
     rating: 4.9,
-    reviews: 2156,
+    reviewCount: 2156,
     pages: 267,
     format: "PDF + EPUB + Audio",
     releaseDate: "April 2026",
@@ -138,7 +119,10 @@ export const products: Product[] = [
       "Audio roleplay scenarios"
     ],
     coverImage: "/covers/negotiation-secrets.jpg",
-    tags: ["negotiation", "communication", "deals", "psychology"]
+    tags: ["negotiation", "communication", "deals", "psychology"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 5,
@@ -149,7 +133,7 @@ export const products: Product[] = [
     price: 36.00,
     originalPrice: 72.00,
     rating: 4.8,
-    reviews: 1674,
+    reviewCount: 1674,
     pages: 312,
     format: "PDF + EPUB",
     releaseDate: "May 2026",
@@ -164,7 +148,10 @@ export const products: Product[] = [
       "Culture-building playbooks"
     ],
     coverImage: "/covers/remote-team-leadership.jpg",
-    tags: ["remote work", "leadership", "management", "teams"]
+    tags: ["remote work", "leadership", "management", "teams"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 6,
@@ -175,12 +162,12 @@ export const products: Product[] = [
     price: 44.00,
     originalPrice: 88.00,
     rating: 4.9,
-    reviews: 2034,
+    reviewCount: 2034,
     pages: 385,
     format: "PDF + EPUB + Spreadsheets",
     releaseDate: "March 2026",
     preOrder: true,
-    bestseller: true,
+    isBestseller: true,
     description: "Transform your relationship with money. Learn to read financial statements, optimize cash flow, secure funding, and make data-driven financial decisions.",
     features: [
       "Financial statement analysis templates",
@@ -191,7 +178,9 @@ export const products: Product[] = [
       "Excel financial models included"
     ],
     coverImage: "/covers/financial-intelligence.jpg",
-    tags: ["finance", "accounting", "fundraising", "cash flow"]
+    tags: ["finance", "accounting", "fundraising", "cash flow"],
+    type: 'ebook',
+    isNew: false
   },
   {
     id: 7,
@@ -202,7 +191,7 @@ export const products: Product[] = [
     price: 38.00,
     originalPrice: 76.00,
     rating: 4.7,
-    reviews: 1842,
+    reviewCount: 1842,
     pages: 294,
     format: "PDF + EPUB",
     releaseDate: "April 2026",
@@ -217,7 +206,10 @@ export const products: Product[] = [
       "Monetization strategies"
     ],
     coverImage: "/covers/personal-branding-empire.jpg",
-    tags: ["branding", "influence", "content", "authority"]
+    tags: ["branding", "influence", "content", "authority"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 8,
@@ -228,7 +220,7 @@ export const products: Product[] = [
     price: 41.00,
     originalPrice: 82.00,
     rating: 4.8,
-    reviews: 2267,
+    reviewCount: 2267,
     pages: 356,
     format: "PDF + EPUB + Audio",
     releaseDate: "May 2026",
@@ -243,7 +235,10 @@ export const products: Product[] = [
       "Video sales techniques"
     ],
     coverImage: "/covers/sales-acceleration.jpg",
-    tags: ["sales", "closing", "revenue", "B2B"]
+    tags: ["sales", "closing", "revenue", "B2B"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 9,
@@ -254,12 +249,12 @@ export const products: Product[] = [
     price: 35.00,
     originalPrice: 70.00,
     rating: 4.7,
-    reviews: 1523,
+    reviewCount: 1523,
     pages: 318,
     format: "PDF + EPUB",
     releaseDate: "April 2026",
     preOrder: true,
-    newRelease: true,
+    isNew: true,
     description: "Automate repetitive tasks and scale your business efficiently. Discover tools, workflows, and systems to 10x your productivity and reduce operational costs.",
     features: [
       "Workflow automation blueprints",
@@ -270,7 +265,9 @@ export const products: Product[] = [
       "Integration setup guides"
     ],
     coverImage: "/covers/business-automation.jpg",
-    tags: ["automation", "productivity", "systems", "efficiency"]
+    tags: ["automation", "productivity", "systems", "efficiency"],
+    type: 'ebook',
+    isBestseller: false
   },
   {
     id: 10,
@@ -281,7 +278,7 @@ export const products: Product[] = [
     price: 37.00,
     originalPrice: 74.00,
     rating: 4.8,
-    reviews: 1456,
+    reviewCount: 1456,
     pages: 276,
     format: "PDF + EPUB",
     releaseDate: "May 2026",
@@ -296,7 +293,10 @@ export const products: Product[] = [
       "Case studies from Fortune 500s"
     ],
     coverImage: "/covers/strategic-partnerships.jpg",
-    tags: ["partnerships", "growth", "networking", "alliances"]
+    tags: ["partnerships", "growth", "networking", "alliances"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
 
   // ========================================
@@ -311,12 +311,12 @@ export const products: Product[] = [
     price: 29.00,
     originalPrice: 59.00,
     rating: 4.9,
-    reviews: 4832,
+    reviewCount: 4832,
     pages: 298,
     format: "PDF + EPUB + Audio",
     releaseDate: "March 2026",
     preOrder: true,
-    bestseller: true,
+    isBestseller: true,
     description: "Transform your life one small habit at a time. Science-backed strategies to build positive habits, break bad ones, and create lasting change.",
     features: [
       "30-day habit transformation program",
@@ -327,7 +327,9 @@ export const products: Product[] = [
       "Audio guided meditations"
     ],
     coverImage: "/covers/atomic-habits-accelerator.jpg",
-    tags: ["habits", "productivity", "personal development", "change"]
+    tags: ["habits", "productivity", "personal development", "change"],
+    type: 'ebook',
+    isNew: false
   },
   {
     id: 12,
@@ -338,7 +340,7 @@ export const products: Product[] = [
     price: 32.00,
     originalPrice: 64.00,
     rating: 4.8,
-    reviews: 3654,
+    reviewCount: 3654,
     pages: 264,
     format: "PDF + EPUB",
     releaseDate: "April 2026",
@@ -353,7 +355,10 @@ export const products: Product[] = [
       "Confidence-building challenges"
     ],
     coverImage: "/covers/confidence-code.jpg",
-    tags: ["confidence", "self-esteem", "mindset", "growth"]
+    tags: ["confidence", "self-esteem", "mindset", "growth"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 13,
@@ -364,12 +369,12 @@ export const products: Product[] = [
     price: 28.00,
     originalPrice: 56.00,
     rating: 4.9,
-    reviews: 2976,
+    reviewCount: 2976,
     pages: 287,
     format: "PDF + EPUB + Audio",
     releaseDate: "March 2026",
     preOrder: true,
-    bestseller: true,
+    isBestseller: true,
     description: "Combine mindfulness with peak performance. Learn to work smarter, not harder, while maintaining mental clarity and emotional balance.",
     features: [
       "Mindful work routines",
@@ -380,7 +385,9 @@ export const products: Product[] = [
       "Time blocking templates"
     ],
     coverImage: "/covers/mindful-productivity.jpg",
-    tags: ["mindfulness", "productivity", "stress", "balance"]
+    tags: ["mindfulness", "productivity", "stress", "balance"],
+    type: 'ebook',
+    isNew: false
   },
   {
     id: 14,
@@ -391,7 +398,7 @@ export const products: Product[] = [
     price: 34.00,
     originalPrice: 68.00,
     rating: 4.7,
-    reviews: 2187,
+    reviewCount: 2187,
     pages: 312,
     format: "PDF + EPUB",
     releaseDate: "April 2026",
@@ -406,7 +413,10 @@ export const products: Product[] = [
       "Relationship maintenance checklists"
     ],
     coverImage: "/covers/relationship-blueprint.jpg",
-    tags: ["relationships", "communication", "emotional intelligence"]
+    tags: ["relationships", "communication", "emotional intelligence"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 15,
@@ -417,12 +427,12 @@ export const products: Product[] = [
     price: 26.00,
     originalPrice: 52.00,
     rating: 4.8,
-    reviews: 3421,
+    reviewCount: 3421,
     pages: 234,
     format: "PDF + EPUB + Audio",
     releaseDate: "March 2026",
     preOrder: true,
-    newRelease: true,
+    isNew: true,
     description: "Transform your mornings, transform your life. Create a powerful morning routine that sets you up for success, energy, and achievement.",
     features: [
       "Customizable morning routines",
@@ -433,7 +443,9 @@ export const products: Product[] = [
       "30-day implementation plan"
     ],
     coverImage: "/covers/morning-mastery.jpg",
-    tags: ["morning routine", "habits", "productivity", "energy"]
+    tags: ["morning routine", "habits", "productivity", "energy"],
+    type: 'ebook',
+    isBestseller: false
   },
   {
     id: 16,
@@ -444,7 +456,7 @@ export const products: Product[] = [
     price: 36.00,
     originalPrice: 72.00,
     rating: 4.9,
-    reviews: 2543,
+    reviewCount: 2543,
     pages: 342,
     format: "PDF + EPUB + Audio",
     releaseDate: "May 2026",
@@ -459,7 +471,10 @@ export const products: Product[] = [
       "Guided healing meditations"
     ],
     coverImage: "/covers/emotional-freedom.jpg",
-    tags: ["healing", "trauma", "emotions", "therapy"]
+    tags: ["healing", "trauma", "emotions", "therapy"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 17,
@@ -470,7 +485,7 @@ export const products: Product[] = [
     price: 30.00,
     originalPrice: 60.00,
     rating: 4.8,
-    reviews: 2876,
+    reviewCount: 2876,
     pages: 268,
     format: "PDF + EPUB",
     releaseDate: "April 2026",
@@ -485,7 +500,10 @@ export const products: Product[] = [
       "Focus-tracking systems"
     ],
     coverImage: "/covers/focus-formula.jpg",
-    tags: ["focus", "concentration", "deep work", "productivity"]
+    tags: ["focus", "concentration", "deep work", "productivity"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 18,
@@ -496,12 +514,12 @@ export const products: Product[] = [
     price: 33.00,
     originalPrice: 66.00,
     rating: 4.9,
-    reviews: 2234,
+    reviewCount: 2234,
     pages: 296,
     format: "PDF + EPUB",
     releaseDate: "May 2026",
     preOrder: true,
-    bestseller: true,
+    isBestseller: true,
     description: "Find your life's purpose and create meaningful impact. Guided exercises and frameworks to clarify your values, mission, and path forward.",
     features: [
       "Purpose discovery exercises",
@@ -512,7 +530,9 @@ export const products: Product[] = [
       "Impact measurement tools"
     ],
     coverImage: "/covers/purpose-driven.jpg",
-    tags: ["purpose", "meaning", "values", "legacy"]
+    tags: ["purpose", "meaning", "values", "legacy"],
+    type: 'ebook',
+    isNew: false
   },
   {
     id: 19,
@@ -523,7 +543,7 @@ export const products: Product[] = [
     price: 31.00,
     originalPrice: 62.00,
     rating: 4.7,
-    reviews: 1987,
+    reviewCount: 1987,
     pages: 274,
     format: "PDF + EPUB + Audio",
     releaseDate: "April 2026",
@@ -538,7 +558,10 @@ export const products: Product[] = [
       "Recovery acceleration techniques"
     ],
     coverImage: "/covers/resilience-roadmap.jpg",
-    tags: ["resilience", "mental toughness", "adversity", "growth"]
+    tags: ["resilience", "mental toughness", "adversity", "growth"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 20,
@@ -549,7 +572,7 @@ export const products: Product[] = [
     price: 27.00,
     originalPrice: 54.00,
     rating: 4.8,
-    reviews: 3156,
+    reviewCount: 3156,
     pages: 242,
     format: "PDF + EPUB + Audio",
     releaseDate: "March 2026",
@@ -564,7 +587,10 @@ export const products: Product[] = [
       "Guided sleep meditations"
     ],
     coverImage: "/covers/sleep-optimization.jpg",
-    tags: ["sleep", "rest", "recovery", "health"]
+    tags: ["sleep", "rest", "recovery", "health"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 21,
@@ -575,12 +601,12 @@ export const products: Product[] = [
     price: 29.00,
     originalPrice: 58.00,
     rating: 4.8,
-    reviews: 2098,
+    reviewCount: 2098,
     pages: 256,
     format: "PDF + EPUB",
     releaseDate: "May 2026",
     preOrder: true,
-    newRelease: true,
+    isNew: true,
     description: "Tap into your creative genius. Overcome creative blocks, develop innovative thinking, and bring your ideas to life with proven creative frameworks.",
     features: [
       "Creative ideation techniques",
@@ -591,7 +617,9 @@ export const products: Product[] = [
       "Project completion protocols"
     ],
     coverImage: "/covers/creative-breakthrough.jpg",
-    tags: ["creativity", "innovation", "ideas", "thinking"]
+    tags: ["creativity", "innovation", "ideas", "thinking"],
+    type: 'ebook',
+    isBestseller: false
   },
   {
     id: 22,
@@ -602,7 +630,7 @@ export const products: Product[] = [
     price: 35.00,
     originalPrice: 70.00,
     rating: 4.9,
-    reviews: 2765,
+    reviewCount: 2765,
     pages: 334,
     format: "PDF + EPUB + Spreadsheets",
     releaseDate: "April 2026",
@@ -617,7 +645,10 @@ export const products: Product[] = [
       "Net worth tracking sheets"
     ],
     coverImage: "/covers/financial-freedom-path.jpg",
-    tags: ["finance", "wealth", "investing", "money"]
+    tags: ["finance", "wealth", "investing", "money"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 23,
@@ -628,7 +659,7 @@ export const products: Product[] = [
     price: 24.00,
     originalPrice: 48.00,
     rating: 4.7,
-    reviews: 2432,
+    reviewCount: 2432,
     pages: 218,
     format: "PDF + EPUB + Audio",
     releaseDate: "March 2026",
@@ -643,7 +674,10 @@ export const products: Product[] = [
       "Audio guided practices"
     ],
     coverImage: "/covers/gratitude-effect.jpg",
-    tags: ["gratitude", "happiness", "mindfulness", "positivity"]
+    tags: ["gratitude", "happiness", "mindfulness", "positivity"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 24,
@@ -654,7 +688,7 @@ export const products: Product[] = [
     price: 32.00,
     originalPrice: 64.00,
     rating: 4.8,
-    reviews: 1876,
+    reviewCount: 1876,
     pages: 282,
     format: "PDF + EPUB + Video",
     releaseDate: "May 2026",
@@ -669,7 +703,10 @@ export const products: Product[] = [
       "Video examples and demos"
     ],
     coverImage: "/covers/public-speaking-mastery.jpg",
-    tags: ["public speaking", "communication", "confidence", "presenting"]
+    tags: ["public speaking", "communication", "confidence", "presenting"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 25,
@@ -680,7 +717,7 @@ export const products: Product[] = [
     price: 25.00,
     originalPrice: 50.00,
     rating: 4.7,
-    reviews: 2654,
+    reviewCount: 2654,
     pages: 238,
     format: "PDF + EPUB",
     releaseDate: "April 2026",
@@ -695,7 +732,10 @@ export const products: Product[] = [
       "Mindful consumption practices"
     ],
     coverImage: "/covers/minimalist-living.jpg",
-    tags: ["minimalism", "simplicity", "declutter", "lifestyle"]
+    tags: ["minimalism", "simplicity", "declutter", "lifestyle"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
 
   // ========================================
@@ -710,12 +750,12 @@ export const products: Product[] = [
     price: 49.00,
     originalPrice: 99.00,
     rating: 4.9,
-    reviews: 4234,
+    reviewCount: 4234,
     pages: 456,
     format: "PDF + EPUB + Code",
     releaseDate: "March 2026",
     preOrder: true,
-    bestseller: true,
+    isBestseller: true,
     description: "Navigate the AI revolution with confidence. Comprehensive guide to understanding, implementing, and profiting from artificial intelligence in 2026.",
     features: [
       "ChatGPT & Claude mastery guide",
@@ -726,7 +766,9 @@ export const products: Product[] = [
       "Future trends analysis"
     ],
     coverImage: "/covers/ai-revolution-2026.jpg",
-    tags: ["AI", "machine learning", "automation", "future"]
+    tags: ["AI", "machine learning", "automation", "future"],
+    type: 'ebook',
+    isNew: false
   },
   {
     id: 27,
@@ -737,12 +779,12 @@ export const products: Product[] = [
     price: 52.00,
     originalPrice: 104.00,
     rating: 4.8,
-    reviews: 3876,
+    reviewCount: 3876,
     pages: 524,
     format: "PDF + EPUB + Code + Videos",
     releaseDate: "April 2026",
     preOrder: true,
-    bestseller: true,
+    isBestseller: true,
     description: "Master modern full-stack development. Learn React, Node.js, databases, deployment, and everything needed to build production-ready applications.",
     features: [
       "Complete React 19 guide",
@@ -753,7 +795,9 @@ export const products: Product[] = [
       "Video tutorials included"
     ],
     coverImage: "/covers/fullstack-development.jpg",
-    tags: ["web development", "programming", "React", "Node.js"]
+    tags: ["web development", "programming", "React", "Node.js"],
+    type: 'ebook',
+    isNew: false
   },
   {
     id: 28,
@@ -764,7 +808,7 @@ export const products: Product[] = [
     price: 44.00,
     originalPrice: 88.00,
     rating: 4.9,
-    reviews: 2567,
+    reviewCount: 2567,
     pages: 378,
     format: "PDF + EPUB + Tools",
     releaseDate: "March 2026",
@@ -779,7 +823,10 @@ export const products: Product[] = [
       "Compliance checklists"
     ],
     coverImage: "/covers/cybersecurity-essentials.jpg",
-    tags: ["cybersecurity", "privacy", "security", "protection"]
+    tags: ["cybersecurity", "privacy", "security", "protection"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 29,
@@ -790,7 +837,7 @@ export const products: Product[] = [
     price: 46.00,
     originalPrice: 92.00,
     rating: 4.8,
-    reviews: 4123,
+    reviewCount: 4123,
     pages: 498,
     format: "PDF + EPUB + Code",
     releaseDate: "April 2026",
@@ -805,7 +852,10 @@ export const products: Product[] = [
       "Interview prep questions"
     ],
     coverImage: "/covers/python-mastery.jpg",
-    tags: ["Python", "programming", "data science", "automation"]
+    tags: ["Python", "programming", "data science", "automation"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 30,
@@ -816,12 +866,12 @@ export const products: Product[] = [
     price: 48.00,
     originalPrice: 96.00,
     rating: 4.7,
-    reviews: 2897,
+    reviewCount: 2897,
     pages: 412,
     format: "PDF + EPUB",
     releaseDate: "May 2026",
     preOrder: true,
-    newRelease: true,
+    isNew: true,
     description: "Understand blockchain technology and cryptocurrency. Investment strategies, development basics, and future trends analysis.",
     features: [
       "Blockchain fundamentals",
@@ -832,7 +882,9 @@ export const products: Product[] = [
       "Security best practices"
     ],
     coverImage: "/covers/blockchain-crypto-2026.jpg",
-    tags: ["blockchain", "cryptocurrency", "Web3", "investing"]
+    tags: ["blockchain", "cryptocurrency", "Web3", "investing"],
+    type: 'ebook',
+    isBestseller: false
   },
   {
     id: 31,
@@ -843,7 +895,7 @@ export const products: Product[] = [
     price: 51.00,
     originalPrice: 102.00,
     rating: 4.9,
-    reviews: 3245,
+    reviewCount: 3245,
     pages: 486,
     format: "PDF + EPUB + Labs",
     releaseDate: "March 2026",
@@ -858,7 +910,10 @@ export const products: Product[] = [
       "Hands-on lab exercises"
     ],
     coverImage: "/covers/cloud-computing-complete.jpg",
-    tags: ["cloud", "AWS", "Azure", "DevOps"]
+    tags: ["cloud", "AWS", "Azure", "DevOps"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 32,
@@ -869,12 +924,12 @@ export const products: Product[] = [
     price: 50.00,
     originalPrice: 100.00,
     rating: 4.8,
-    reviews: 3654,
+    reviewCount: 3654,
     pages: 512,
     format: "PDF + EPUB + Notebooks",
     releaseDate: "April 2026",
     preOrder: true,
-    bestseller: true,
+    isBestseller: true,
     description: "Transform data into business value. Complete guide to data analysis, machine learning, and predictive analytics.",
     features: [
       "Statistical analysis fundamentals",
@@ -885,7 +940,9 @@ export const products: Product[] = [
       "Real business case studies"
     ],
     coverImage: "/covers/data-science-accelerator.jpg",
-    tags: ["data science", "analytics", "machine learning", "Python"]
+    tags: ["data science", "analytics", "machine learning", "Python"],
+    type: 'ebook',
+    isNew: false
   },
   {
     id: 33,
@@ -896,7 +953,7 @@ export const products: Product[] = [
     price: 47.00,
     originalPrice: 94.00,
     rating: 4.7,
-    reviews: 2876,
+    reviewCount: 2876,
     pages: 442,
     format: "PDF + EPUB + Code + Videos",
     releaseDate: "May 2026",
@@ -911,7 +968,10 @@ export const products: Product[] = [
       "10+ complete app projects"
     ],
     coverImage: "/covers/mobile-app-development.jpg",
-    tags: ["mobile", "iOS", "Android", "React Native"]
+    tags: ["mobile", "iOS", "Android", "React Native"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 34,
@@ -922,7 +982,7 @@ export const products: Product[] = [
     price: 49.00,
     originalPrice: 98.00,
     rating: 4.9,
-    reviews: 2543,
+    reviewCount: 2543,
     pages: 468,
     format: "PDF + EPUB + Scripts",
     releaseDate: "April 2026",
@@ -937,7 +997,10 @@ export const products: Product[] = [
       "Automation scripts included"
     ],
     coverImage: "/covers/devops-engineering.jpg",
-    tags: ["DevOps", "Docker", "Kubernetes", "automation"]
+    tags: ["DevOps", "Docker", "Kubernetes", "automation"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 35,
@@ -948,7 +1011,7 @@ export const products: Product[] = [
     price: 43.00,
     originalPrice: 86.00,
     rating: 4.8,
-    reviews: 3234,
+    reviewCount: 3234,
     pages: 394,
     format: "PDF + EPUB + Figma Files",
     releaseDate: "March 2026",
@@ -963,7 +1026,10 @@ export const products: Product[] = [
       "50+ design templates"
     ],
     coverImage: "/covers/ux-ui-design-mastery.jpg",
-    tags: ["UX", "UI", "design", "Figma"]
+    tags: ["UX", "UI", "design", "Figma"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 36,
@@ -974,12 +1040,12 @@ export const products: Product[] = [
     price: 38.00,
     originalPrice: 76.00,
     rating: 4.7,
-    reviews: 2987,
+    reviewCount: 2987,
     pages: 328,
     format: "PDF + EPUB + Templates",
     releaseDate: "May 2026",
     preOrder: true,
-    newRelease: true,
+    isNew: true,
     description: "Launch digital products without writing code. Master Webflow, Bubble, Airtable, Zapier, and other no-code tools.",
     features: [
       "Webflow website builder",
@@ -990,7 +1056,9 @@ export const products: Product[] = [
       "Product launch checklist"
     ],
     coverImage: "/covers/nocode-revolution.jpg",
-    tags: ["no-code", "automation", "productivity", "tools"]
+    tags: ["no-code", "automation", "productivity", "tools"],
+    type: 'ebook',
+    isBestseller: false
   },
   {
     id: 37,
@@ -1001,7 +1069,7 @@ export const products: Product[] = [
     price: 45.00,
     originalPrice: 90.00,
     rating: 4.8,
-    reviews: 2456,
+    reviewCount: 2456,
     pages: 476,
     format: "PDF + EPUB + Assets",
     releaseDate: "April 2026",
@@ -1016,7 +1084,10 @@ export const products: Product[] = [
       "Free asset packs included"
     ],
     coverImage: "/covers/game-development.jpg",
-    tags: ["game development", "Unity", "Unreal", "gaming"]
+    tags: ["game development", "Unity", "Unreal", "gaming"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 38,
@@ -1027,7 +1098,7 @@ export const products: Product[] = [
     price: 44.00,
     originalPrice: 88.00,
     rating: 4.9,
-    reviews: 1987,
+    reviewCount: 1987,
     pages: 386,
     format: "PDF + EPUB + Code",
     releaseDate: "May 2026",
@@ -1042,7 +1113,10 @@ export const products: Product[] = [
       "Real-world code examples"
     ],
     coverImage: "/covers/api-design-development.jpg",
-    tags: ["API", "REST", "GraphQL", "backend"]
+    tags: ["API", "REST", "GraphQL", "backend"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 39,
@@ -1053,7 +1127,7 @@ export const products: Product[] = [
     price: 36.00,
     originalPrice: 72.00,
     rating: 4.8,
-    reviews: 3421,
+    reviewCount: 3421,
     pages: 312,
     format: "PDF + EPUB + Templates",
     releaseDate: "March 2026",
@@ -1068,7 +1142,10 @@ export const products: Product[] = [
       "Career roadmaps"
     ],
     coverImage: "/covers/tech-career-acceleration.jpg",
-    tags: ["career", "jobs", "interviews", "tech industry"]
+    tags: ["career", "jobs", "interviews", "tech industry"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   },
   {
     id: 40,
@@ -1079,7 +1156,7 @@ export const products: Product[] = [
     price: 34.00,
     originalPrice: 68.00,
     rating: 4.7,
-    reviews: 2765,
+    reviewCount: 2765,
     pages: 286,
     format: "PDF + EPUB",
     releaseDate: "April 2026",
@@ -1094,41 +1171,12 @@ export const products: Product[] = [
       "Destination guides"
     ],
     coverImage: "/covers/digital-nomad-tech.jpg",
-    tags: ["remote work", "digital nomad", "travel", "lifestyle"]
+    tags: ["remote work", "digital nomad", "travel", "lifestyle"],
+    type: 'ebook',
+    isBestseller: false,
+    isNew: false
   }
 ];
 
-// Utility functions for filtering and searching
-export const getProductsByCategory = (category: string) => {
-  return products.filter(product => product.category === category);
-};
-
-export const getBestsellers = () => {
-  return products.filter(product => product.bestseller);
-};
-
-export const getNewReleases = () => {
-  return products.filter(product => product.newRelease);
-};
-
-export const getPreOrders = () => {
-  return products.filter(product => product.preOrder);
-};
-
-export const searchProducts = (query: string) => {
-  const lowercaseQuery = query.toLowerCase();
-  return products.filter(product => 
-    product.title.toLowerCase().includes(lowercaseQuery) ||
-    product.description.toLowerCase().includes(lowercaseQuery) ||
-    product.tags.some(tag => tag.toLowerCase().includes(lowercaseQuery)) ||
-    product.author.toLowerCase().includes(lowercaseQuery)
-  );
-};
-
-export const getProductById = (id: number) => {
-  return products.find(product => product.id === id);
-};
-
-export const categories = ['Business', 'Self-Help', 'Tech'];
 
 export default products;
