@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Hero from '../components/home/Hero';
 import ProductCard from '../components/products/ProductCard';
-import { products } from '../data/products';
+import  products  from '../data/products';
 
 const HomePage = () => {
   const [isVisible, setIsVisible] = useState(false);
