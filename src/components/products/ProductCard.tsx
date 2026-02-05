@@ -31,6 +31,16 @@ const ProductCard = ({ product, onAddToCart, delay = 0 }: ProductCardProps) => {
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
 
+  <Badge>
+  {product.type === 'workbook' ? '📔 Workbook' : '📚 Ebook'}
+</Badge>
+
+{product.pages && (
+  <span className="text-sm text-gray-600">
+    {product.pages} pages {product.format === 'pdf-fillable' && '• Fillable'}
+  </span>
+)}
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
