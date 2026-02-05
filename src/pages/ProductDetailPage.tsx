@@ -49,7 +49,7 @@ const ProductDetailPage = () => {
       price: product.price,
       category: product.category,
       rating: product.rating,
-      reviews: product.reviews,
+      reviews: product.reviewCount,
       description: product.description,
       selectedFormat: selectedFormat,
       ...('cover' in product && product.coverImage && { cover: product.coverImage })
@@ -198,7 +198,7 @@ const ProductDetailPage = () => {
                 ))}
               </div>
               <span className="text-lg font-bold text-gray-900">{product.rating}</span>
-              <span className="text-gray-500">({product.reviews} reviews)</span>
+              <span className="text-gray-500">({product.reviewCount} reviews)</span>
             </div>
 
             {/* Price */}
@@ -299,7 +299,7 @@ const ProductDetailPage = () => {
                 </div>
                 <div>
                   <p className="font-semibold text-gray-900 mb-1">
-                    Join {product.reviews}+ happy readers
+                    Join {product.reviewCount}+ happy readers
                   </p>
                   <p className="text-sm text-gray-600">
                     Trusted by professionals worldwide
@@ -401,7 +401,7 @@ const ProductDetailPage = () => {
                         ))}
                       </div>
                     </div>
-                    <p className="text-sm text-gray-600">{product.reviews} reviews</p>
+                    <p className="text-sm text-gray-600">{product.reviewCount} reviews</p>
                   </div>
                 </div>
 
