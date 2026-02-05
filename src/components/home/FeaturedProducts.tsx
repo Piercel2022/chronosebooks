@@ -36,8 +36,8 @@ const FeaturedProducts = ({
   }, [limit]);
 
   const filteredProducts = products.filter(product => {
-    if (activeFilter === 'bestseller') return product.bestseller;
-    if (activeFilter === 'new') return product.newRelease;
+    if (activeFilter === 'bestseller') return product.isBestseller;
+    if (activeFilter === 'new') return product.isNew;
     return true;
   });
 
