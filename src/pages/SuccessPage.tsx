@@ -18,8 +18,8 @@ const SuccessPage = () => {
     // Clear cart on successful order
     clearCart();
 
-    // Hide confetti after animation
-    const timer = setTimeout(() => setShowConfetti(false), 3000);
+    // Hide confetti after animation (10 seconds)
+    const timer = setTimeout(() => setShowConfetti(false), 10000);
     
     return () => clearTimeout(timer);
   }, [clearCart]);
@@ -54,8 +54,8 @@ const SuccessPage = () => {
               style={{
                 left: `${Math.random() * 100}%`,
                 top: '-10px',
-                animationDelay: `${Math.random() * 22}s`,
-                animationDuration: `${22 + Math.random() * 22}s`,
+                animationDelay: `${Math.random() * 2}s`,
+                animationDuration: `${2 + Math.random() * 2}s`,
               }}
             >
               <Sparkles 
